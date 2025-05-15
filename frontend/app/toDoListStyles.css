@@ -1,0 +1,139 @@
+body {
+  background-color: #2d2c41;
+  color: #333;
+}
+
+.todolist-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.todolist {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.items-container {
+  width: 100%;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item.high-priority {
+  background-color: #ffcdd2; 
+  color: #c62828; 
+}
+
+.list-group-item.medium-priority {
+  background-color: #fff9c4; 
+  color: #f9a825; 
+}
+
+.list-group-item.low-priority {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.description {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-selected {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+  color: white;
+}
+.priority-indicator {
+  display: none; 
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  color: #ffffff !important;
+  opacity: 0.9;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.navbar-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  opacity: 1;
+  font-weight: 500;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group .form-control {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.input-group .btn {
+  border-radius: 4px;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+.list-group-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-muted {
+  animation: fadeIn 0.5s ease-in;
+}

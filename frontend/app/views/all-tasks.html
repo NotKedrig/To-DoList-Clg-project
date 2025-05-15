@@ -1,0 +1,56 @@
+<div class="todolist-container">
+  <div class="todolist">
+    <h2 class="text-center mb-4">All Tasks</h2>
+    <div class="items-container">
+      <ul class="list-group">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+          ng-repeat="item in allTasksCtrl.items"
+        >
+          <div class="description">
+            <span ng-class="{'item-selected':item.done}"
+              >{{item.itemDescription}}</span
+            >
+            <small class="text-muted ms-2" ng-if="item.deadline">
+              Due: {{item.deadline | date:'medium'}}
+            </small>
+            <span
+              class="badge badge-danger"
+              ng-if="allTasksCtrl.isOverdue(item)"
+              >Overdue</span
+            >
+            <span class="badge badge-success" ng-if="item.done">Completed</span>
+            <span
+              class="badge badge-warning"
+              ng-if="!item.done && !allTasksCtrl.isOverdue(item)"
+              >Pending</span
+            >
+          </div>
+          <div class="actions">
+            <div class="form-check form-switch" title="Mark as complete">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                ng-model="item.done"
+                ng-change="allTasksCtrl.updateItem(item)"
+                aria-label="Mark task as complete"
+              />
+              <label class="form-check-label">Complete</label>
+            </div>
+            <button
+              class="btn btn-danger btn-sm d-flex align-items-center"
+              ng-click="allTasksCtrl.deleteItem(item)"
+              title="Delete task"
+            >
+              <i class="bi bi-trash"></i>
+              <span class="ms-1">Delete</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div class="text-center mt-3" ng-if="allTasksCtrl.items.length === 0">
+        <p class="text-muted">No tasks found</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "angular-todo-app",
+  "version": "0.1.0",
+  "description": "To-Do list app with Angular 1.x",
+  "main": "server.js",
+  "scripts": {
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makingsensetraining/angular-todo-app.git"
+  },
+  "keywords": [
+    "todo",
+    "app",
+    "angular",
+    "javascript"
+  ],
+  "author": "makingsensetraining",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/makingsensetraining/angular-todo-app/issues"
+  },
+  "homepage": "https://github.com/makingsensetraining/angular-todo-app#readme",
+  "dependencies": {
+    "angular": "~1.6.2",
+    "express": "~4.14.1"
+  }
+}

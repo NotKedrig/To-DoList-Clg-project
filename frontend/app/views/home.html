@@ -1,0 +1,84 @@
+<div class="todolist-container">
+  <div class="todolist">
+    <form
+      class="container mt-4"
+      ng-submit="homeCtrl.addItem(homeCtrl.itemDescription)"
+    >
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          ng-model="homeCtrl.itemDescription"
+          placeholder="Add a new task..."
+        />
+        <input
+          type="datetime-local"
+          class="form-control"
+          ng-model="homeCtrl.deadline"
+          placeholder="Set deadline"
+        />
+        <select
+          class="form-select"
+          ng-model="homeCtrl.priority"
+          style="max-width: 150px"
+        >
+          <option value="">Priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+      </div>
+    </form>
+    <div class="mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          ng-model="homeCtrl.searchText"
+          placeholder="Search tasks..."
+        />
+      </div>
+    </div>
+    <div class="items-container">
+      <ul class="list-group">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center {{item.priority}}-priority"
+          ng-repeat="item in homeCtrl.items | filter:homeCtrl.searchText"
+          ng-class="{'task-completed': item.done}"
+        >
+          <div class="description">
+            <span ng-class="{'item-selected':item.done}"
+              >{{item.itemDescription}}</span
+            >
+            <small class="text-muted ms-2" ng-if="item.deadline">
+              Due: {{item.deadline | date:'medium'}}
+            </small>
+            <span class="badge badge-danger" ng-if="homeCtrl.isOverdue(item)"
+              >Overdue</span
+            >
+          </div>
+          <div class="actions">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input task-checkbox"
+                type="checkbox"
+                ng-model="item.done"
+                ng-change="homeCtrl.updateItem(item)"
+              />
+            </div>
+            <button
+              class="btn btn-danger btn-sm delete-btn"
+              ng-click="homeCtrl.deleteItem(item)"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div class="text-center mt-3" ng-if="homeCtrl.items.length === 0">
+        <p class="text-muted">No tasks found</p>
+      </div>
+    </div>
+  </div>
+</div>

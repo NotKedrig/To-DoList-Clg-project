@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html ng-app="toDoList">
+  <head>
+    <title>TO-DO List</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Architects+Daughter"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="toDoListStyles.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="toDoList.js"></script>
+    <script src="itemsService.js"></script>
+    <script src="notificationService.js"></script>
+    <script src="soundService.js"></script>
+    <script>
+      $(document).ready(function () {
+     
+        function animateNewTask(taskElement) {
+          $(taskElement).hide().fadeIn(1000);
+        }
+        $(document).on("DOMNodeInserted", ".list-group-item", function (e) {
+          if (e.target.classList.contains("list-group-item")) {
+            animateNewTask(e.target);
+          }
+        });
+        $(document).on("change", ".task-checkbox", function () {
+          const taskItem = $(this).closest(".list-group-item");
+          if ($(this).is(":checked")) {
+            taskItem.addClass("task-completed");
+            taskItem.animate(
+              {
+                opacity: 0.7,
+                backgroundColor: "#f8f9fa",
+              },
+              500
+            );
+          } else {
+            taskItem.removeClass("task-completed");
+            taskItem.animate(
+              {
+                opacity: 1,
+                backgroundColor: taskItem.hasClass("high-priority")
+                  ? "#ffcdd2"
+                  : taskItem.hasClass("medium-priority")
+                  ? "#fff9c4"
+                  : taskItem.hasClass("low-priority")
+                  ? "#c8e6c9"
+                  : "#fff",
+              },
+              500
+            );
+          }
+        });
+        $(document).on("click", ".delete-btn", function () {
+          const taskItem = $(this).closest(".list-group-item");
+          taskItem.animate(
+            {
+              opacity: 0,
+              height: 0,
+              padding: 0,
+              margin: 0,
+            },
+            500,
+            function () {
+              taskItem.remove();
+            }
+          );
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#/">TO-DO LIST</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link d-flex align-items-center"
+                ng-class="{ active: $location.path() === '/' }"
+                href="#/"
+              >
+                <i class="bi bi-house-door me-1"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link d-flex align-items-center"
+                ng-class="{ active: $location.path() === '/all' }"
+                href="#/all"
+              >
+                <i class="bi bi-list-task me-1"></i>
+                <span>All Tasks</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link d-flex align-items-center"
+                ng-class="{ active: $location.path() === '/pending' }"
+                href="#/pending"
+              >
+                <i class="bi bi-clock me-1"></i>
+                <span>Pending Tasks</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link d-flex align-items-center"
+                ng-class="{ active: $location.path() === '/overdue' }"
+                href="#/overdue"
+              >
+                <i class="bi bi-exclamation-triangle me-1"></i>
+                <span>Overdue Tasks</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link d-flex align-items-center"
+                ng-class="{ active: $location.path() === '/completed' }"
+                href="#/completed"
+              >
+                <i class="bi bi-check2-circle me-1"></i>
+                <span>Completed Tasks</span>
+              </a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center">
+            <div
+              class="notification-badge me-3"
+              ng-if="notificationCtrl.getNotifications().length > 0"
+            >
+              {{notificationCtrl.getNotifications().length}}
+            </div>
+            <button onclick="logout()" class="btn btn-outline-light">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div ng-view></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login.html";
+      }
+
+      $(document).ready(function () {
+        $(".list-group-item").hide().fadeIn(500);
+        $(".list-group")
+          .on("mouseenter", ".list-group-item", function () {
+            $(this).addClass("bg-light");
+          })
+          .on("mouseleave", ".list-group-item", function () {
+            $(this).removeClass("bg-light");
+          });
+      });
+    </script>
+  </body>
+</html>

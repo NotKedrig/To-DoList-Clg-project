@@ -1,0 +1,41 @@
+<div class="todolist-container">
+  <div class="todolist">
+    <h2 class="text-center mb-4">Completed Tasks</h2>
+    <div class="items-container">
+      <ul class="list-group">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+          ng-repeat="item in completedCtrl.items"
+        >
+          <div class="description">
+            <span class="item-selected">{{item.itemDescription}}</span>
+            <small class="text-muted ms-2" ng-if="item.deadline">
+              Due: {{item.deadline | date:'medium'}}
+            </small>
+            <span class="badge badge-success">Completed</span>
+          </div>
+          <div class="actions">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                ng-model="item.done"
+                ng-change="completedCtrl.updateItem(item)"
+                checked
+              />
+            </div>
+            <button
+              class="btn btn-danger btn-sm"
+              ng-click="completedCtrl.deleteItem(item)"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div class="text-center mt-3" ng-if="completedCtrl.items.length === 0">
+        <p class="text-muted">No completed tasks found</p>
+      </div>
+    </div>
+  </div>
+</div>
