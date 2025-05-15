@@ -1,3 +1,8 @@
+## Developers
+
+- NotKedrig (Code Author)
+- Kakaboykk (Deployment & Hosting)
+
 # To-DoList-Clg-project
 
 # Login-and-register-using-node.js-and-mongodb
